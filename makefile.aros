@@ -1,0 +1,38 @@
+TARGET  = z.library
+VERSION = 1
+
+ZLIBDIR = zlib-1.2.4
+
+CC = i386-aros-gcc
+AS = i386-aros-as
+
+OPTIMIZE = -O2
+INCLUDES = -I./include -I./$(ZLIBDIR)
+DEFINES  = -DSTDC -DAMIGA -DDYNAMIC_CRC_TABLE
+
+CFLAGS  = $(OPTIMIZE) $(INCLUDES) $(DEFINES)
+LDFLAGS = -nostartfiles
+LIBS    = 
+
+ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
+            adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
+            inftrees.c trees.c uncompr.c zutil.c)
+
+SRCS = init.c malloc.c
+
+OBJS = $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o)
+
+.PHONY: all
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+init.o: $(TARGET)_rev.h
+
+clean:
+	rm -f $(TARGET) *.o $(ZLIBDIR)/*.o
+
+revision:
+	bumprev -e is $(VERSION) $(TARGET)
+

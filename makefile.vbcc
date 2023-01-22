@@ -1,0 +1,39 @@
+TARGET  = z.library
+VERSION = 1
+
+ZLIBDIR = zlib-1.2.4
+
+CC = vc +aos68k
+AS = vasmm68k_mot
+
+OPTIMIZE = -O2 -cpu=68020
+INCLUDES = -I./include -I./$(ZLIBDIR)
+DEFINES  = -DSTDC -DAMIGA -DDYNAMIC_CRC_TABLE
+
+CFLAGS  = -c99 $(OPTIMIZE) $(INCLUDES) $(DEFINES)
+ASFLAGS = -quiet -Fhunk -m68020
+LDFLAGS = -nostdlib
+
+ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
+            adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
+            inftrees.c trees.c uncompr.c zutil.c)
+
+SRCS = init.c malloc.c
+
+OBJS = $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o)
+
+.PHONY: all
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+init.o: $(TARGET)_rev.h
+
+.PHONY: clean
+clean:
+	rm -f $(TARGET) *.o $(ZLIBDIR)/*.o
+
+revision:
+	bumprev -e is $(VERSION) $(TARGET)
+
