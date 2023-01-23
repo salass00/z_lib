@@ -4,14 +4,12 @@ VERSION = 1
 ZLIBDIR = zlib-1.2.13
 
 CC = vc +aos68k
-AS = vasmm68k_mot
 
 OPTIMIZE = -O2 -cpu=68020
 INCLUDES = -I./include -I./$(ZLIBDIR)
 DEFINES  = -DSTDC -DAMIGA -DZLIB_CONST -DHAVE_STDARG_H
 
 CFLAGS  = -c99 $(OPTIMIZE) $(INCLUDES) $(DEFINES)
-ASFLAGS = -quiet -Fhunk -m68020
 LDFLAGS = -nostdlib
 
 ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
