@@ -3,3 +3,7 @@
 # Ignore generated executable files
 z.library
 z.library.debug
+z.library.000
+z.library.000.debug
+z.library.020
+z.library.020.debug
