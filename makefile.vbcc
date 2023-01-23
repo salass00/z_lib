@@ -1,12 +1,12 @@
 TARGET  = z.library
 VERSION = 1
 
-ZLIBDIR = zlib-1.2.13
+ZLIBDIR = src/zlib-1.2.13
 
 CC = vc +aos68k
 
 OPTIMIZE = -O2 -cpu=68020
-INCLUDES = -I./include -I./$(ZLIBDIR)
+INCLUDES = -I./include -I./$(ZLIBDIR) -I.
 DEFINES  = -DSTDC -DAMIGA -DZLIB_CONST -DHAVE_STDARG_H
 
 CFLAGS  = -c99 $(OPTIMIZE) $(INCLUDES) $(DEFINES)
@@ -16,12 +16,16 @@ ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
             adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
             inftrees.c trees.c uncompr.c zutil.c)
 
-SRCS = dummy_start.c init.c malloc.c
+SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 
-OBJS = $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o)
+OBJS = $(subst src/,obj/,$(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 
 .PHONY: all
 all: $(TARGET)
+
+obj/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
@@ -30,7 +34,7 @@ init.o: $(TARGET)_rev.h
 
 .PHONY: clean
 clean:
-	rm -f $(TARGET) *.o $(ZLIBDIR)/*.o
+	rm -rf $(TARGET) obj
 
 revision:
 	bumprev -e is $(VERSION) $(TARGET)
