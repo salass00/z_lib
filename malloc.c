@@ -29,6 +29,7 @@
 
 #include <proto/exec.h>
 #include <stdlib.h>
+#include <stdint.h> /* For SIZE_MAX */
 #include <string.h>
 
 #define BASE_PTR(ptr) ((void *)((size_t *)ptr - 1))
@@ -51,6 +52,9 @@ void malloc_exit(void) {
 
 void *malloc(size_t size) {
 	size_t *ptr;
+	if (size > (SIZE_MAX - sizeof(size_t))) {
+		return NULL;
+	}
 	ObtainSemaphore(&LibPoolSemaphore);
 	ptr = AllocPooled(LibPool, sizeof(size_t) + size);
 	ReleaseSemaphore(&LibPoolSemaphore);
