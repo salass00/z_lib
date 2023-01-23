@@ -16,7 +16,7 @@ ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
             adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
             inftrees.c trees.c uncompr.c zutil.c)
 
-SRCS = init.c malloc.c
+SRCS = dummy_start.c init.c malloc.c
 
 OBJS = $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o)
 
