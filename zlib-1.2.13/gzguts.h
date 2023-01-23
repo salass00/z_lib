@@ -31,10 +31,6 @@
 #endif
 #include <fcntl.h>
 
-#if defined(__amigaos4__) && defined(__NEWLIB__)
-#include <unistd.h>
-#endif
-
 #ifdef _WIN32
 #  include <stddef.h>
 #endif

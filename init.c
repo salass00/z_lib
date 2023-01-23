@@ -294,7 +294,9 @@ static struct ZBase *LibInit (REG(d0, struct ZBase *libBase), REG(a0, BPTR segli
 	SysBase = exec_base;
 
 	if (malloc_init()) {
+#ifdef DYNAMIC_CRC_TABLE
 		get_crc_table();
+#endif
 		return libBase;
 	}
 
