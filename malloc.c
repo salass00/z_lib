@@ -64,6 +64,19 @@ void *malloc(size_t size) {
 	return ptr;
 }
 
+void *calloc(size_t num, size_t es) {
+	size_t size = num * es;
+	void *ptr;
+	if (num != 0 && es != 0 && (size / es) != num) {
+		return NULL;
+	}
+	ptr = malloc(size);
+	if (ptr != NULL) {
+		bzero(ptr, size);
+	}
+	return ptr;
+}
+
 void free(void *ptr) {
 	if (ptr) {
 		ObtainSemaphore(&LibPoolSemaphore);
