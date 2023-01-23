@@ -663,7 +663,7 @@ static LONG Zlib_Compress(REG(a0, APTR dest), REG(a1, ULONG *destLen), REG(a2, A
 	REG(d0, ULONG sourceLen))
 {
 #endif
-	return compress(dest, destLen, source, sourceLen);
+	return compress(dest, (uLongf *)destLen, source, sourceLen);
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif
@@ -684,7 +684,7 @@ static LONG Zlib_Uncompress(REG(a0, APTR dest), REG(a1, ULONG *destLen), REG(a2,
 	REG(d0, ULONG sourceLen))
 {
 #endif
-	return uncompress(dest, destLen, source, sourceLen);
+	return uncompress(dest, (uLongf *)destLen, source, sourceLen);
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif
