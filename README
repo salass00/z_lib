@@ -1,16 +1,21 @@
 This is an AmigaOS shared library implementation of the zlib library from
 Jean-loup Gailly and Mark Adler (https://www.zlib.net/).
 
-There have been a couple of other zlib shared library conversions using the
-same name in the past but the API of this one should be backwards compatible
-with them both, so replacing either of them with this one shouldn't cause any
-problems.
+There have been a couple of other zlib shared library conversions (by other
+developers) using the same name in the past but the API of this one should be
+backwards compatible with them both, so replacing either of them with this one
+shouldn't cause any problems.
 
 Source code:
 
 The source code for this library is available under BSD license on github:
 
 https://github.com/salass00/z_lib
+
+For source code of versions 1.7 and older of this library see the
+diskimagedevice project on sourceforge.net:
+
+https://sourceforge.net/projects/diskimagedevice/
 
 Changes:
 
