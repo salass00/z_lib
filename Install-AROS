@@ -1,0 +1,10 @@
+(welcome)
+(set @default-dest "LIBS:")
+(copylib
+  (prompt "Copying z.library")
+  (help @copylib-help)
+  (source "Libs/z.library")
+  (dest @default-dest)
+)
+(exit)
+

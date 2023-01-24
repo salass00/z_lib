@@ -16,12 +16,18 @@ DESTDIR='tmp'
 rm -rf ${DESTDIR}
 mkdir -p ${DESTDIR}/z_lib/Libs
 
+if [ "$HOST" = "m68k-amigaos" ]; then
+  cp -p Install ${DESTDIR}/z_lib
+else
+  cp -p Install-AROS ${DESTDIR}/z_lib/Install
+fi;
 cp -p LICENSE ${DESTDIR}/z_lib
 cp -p releasenotes ${DESTDIR}/z_lib
 cp -p z.library.000 ${DESTDIR}/z_lib/Libs
 cp -p z.library.020 ${DESTDIR}/z_lib/Libs
 
 cp -p icons/def_drawer.info ${DESTDIR}/z_lib.info
+cp -p icons/def_install.info ${DESTDIR}/z_lib/Install.info
 cp -p icons/def_doc.info ${DESTDIR}/z_lib/LICENSE.info
 cp -p icons/def_doc.info ${DESTDIR}/z_lib/releasenotes.info
 
