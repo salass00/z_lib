@@ -32,6 +32,10 @@
 #include <stdint.h> /* For SIZE_MAX */
 #include <string.h>
 
+#ifdef __VBCC__
+#define bzero(ptr,size) memset(ptr, 0, size)
+#endif
+
 #define BASE_PTR(ptr) ((void *)((size_t *)ptr - 1))
 #define ALLOC_SIZE(ptr) (*((size_t *)ptr - 1))
 
