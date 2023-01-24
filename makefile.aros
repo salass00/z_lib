@@ -18,9 +18,11 @@ ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
             adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
             inftrees.c trees.c uncompr.c zutil.c)
 
+main_SRCS = $(wildcard src/main/*.c)
+
 SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 
-OBJS = $(subst src/,obj/,$(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+OBJS = $(subst src/,obj/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 
 .PHONY: all
 all: $(TARGET)

@@ -21,13 +21,15 @@ ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
             adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
             inftrees.c trees.c uncompr.c zutil.c)
 
+main_SRCS = $(wildcard src/main/*.c)
+
 SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 
 ARCH_000 = -m68000
-OBJS_000 = $(subst src/,obj-000/,$(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+OBJS_000 = $(subst src/,obj-000/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 
 ARCH_020 = -m68020
-OBJS_020 = $(subst src/,obj-020/,$(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+OBJS_020 = $(subst src/,obj-020/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 
 .PHONY: all
 all: $(TARGET).000 $(TARGET).020
