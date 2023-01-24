@@ -21,6 +21,7 @@ if [ "$HOST" = "m68k-amigaos" ]; then
 else
   cp -p Install-AROS ${DESTDIR}/z_lib/Install
 fi;
+cp -p README ${DESTDIR}/z_lib
 cp -p LICENSE ${DESTDIR}/z_lib
 cp -p releasenotes ${DESTDIR}/z_lib
 cp -p z.library.000 ${DESTDIR}/z_lib/Libs
@@ -28,6 +29,7 @@ cp -p z.library.020 ${DESTDIR}/z_lib/Libs
 
 cp -p icons/def_drawer.info ${DESTDIR}/z_lib.info
 cp -p icons/def_install.info ${DESTDIR}/z_lib/Install.info
+cp -p icons/def_doc.info ${DESTDIR}/z_lib/README.info
 cp -p icons/def_doc.info ${DESTDIR}/z_lib/LICENSE.info
 cp -p icons/def_doc.info ${DESTDIR}/z_lib/releasenotes.info
 
