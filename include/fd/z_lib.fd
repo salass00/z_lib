@@ -1,0 +1,26 @@
+* "z.library"
+* Automatically generated FD (sfdc 1.11e)! Do not edit!
+##base _ZBase
+##bias 30
+##public
+ZlibVersion()()
+DeflateInit(strm,level)(a0,d0)
+Deflate(strm,flush)(a0,d0)
+DeflateEnd(strm)(a0)
+InflateInit(strm)(a0)
+Inflate(strm,flush)(a0,d0)
+InflateEnd(strm)(a0)
+DeflateInit2(strm,level,method,windowBits,memLevel,strategy)(a0,d0,d1,d2,d3,d4)
+DeflateSetDictionary(strm,dictionary,dictLength)(a0,a1,d0)
+DeflateCopy(dest,source)(a0,a1)
+DeflateReset(strm)(a0)
+DeflateParams(strm,level,strategy)(a0,d0,d1)
+InflateInit2(strm,windowBits)(a0,d0)
+InflateSetDictionary(strm,dictionary,dictLength)(a0,a1,d0)
+InflateReset(strm)(a0)
+Compress(dest,destLen,source,sourceLen)(a0,a1,a2,d0)
+Uncompress(dest,destLen,source,sourceLen)(a0,a1,a2,d0)
+Adler32(adler,buf,len)(d0,a0,d1)
+CRC32(crc,buf,len)(d0,a0,d1)
+InflateSync(strm)(a0)
+##end
