@@ -23,12 +23,16 @@ main_SRCS = $(wildcard src/main/*.c)
 SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 
 OBJS = $(subst src/,obj/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+DEPS = $(OBJS:.o=.d)
 
 .PHONY: all
 all: $(TARGET)
 
+-include $(DEPS)
+
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
+	$(CC) -MM -MP -MT $(@:.o=.d) -MT $@ -MF $(@:.o=.d) $(CFLAGS) $<
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(TARGET).debug: $(OBJS)
@@ -36,8 +40,6 @@ $(TARGET).debug: $(OBJS)
 
 $(TARGET): $(OBJS)
 	$(CC) -s $(LDFLAGS) -o $@ $^ $(LIBS)
-
-init.o: $(TARGET)_rev.h
 
 clean:
 	rm -rf $(TARGET) $(TARGET).debug obj

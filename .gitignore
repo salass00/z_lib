@@ -1,5 +1,5 @@
-# Ignore object files and static libs
-*.[ao]
+# Ignore object, dependency and static library files
+*.[ado]
 # Ignore generated executable files
 z.library
 z.library.debug

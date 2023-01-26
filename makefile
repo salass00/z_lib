@@ -27,19 +27,27 @@ SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 
 ARCH_000 = -m68000
 OBJS_000 = $(subst src/,obj-000/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+DEPS_000 = $(OBJS_000:.o=.d)
 
 ARCH_020 = -m68020
 OBJS_020 = $(subst src/,obj-020/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+DEPS_020 = $(OBJS_020:.o=.d)
 
 .PHONY: all
 all: $(TARGET).000 $(TARGET).020
 
+-include $(DEPS_000)
+
 obj-000/%.o: src/%.c
 	@mkdir -p $(dir $@)
+	$(CC) -MM -MP -MT $(@:.o=.d) -MT $@ -MF $(@:.o=.d) $(ARCH_000) $(CFLAGS) $<
 	$(CC) $(ARCH_000) $(CFLAGS) -c -o $@ $<
+
+-include $(DEPS_020)
 
 obj-020/%.o: src/%.c
 	@mkdir -p $(dir $@)
+	$(CC) -MM -MP -MT $(@:.o=.d) -MT $@ -MF $(@:.o=.d) $(ARCH_020) $(CFLAGS) $<
 	$(CC) $(ARCH_020) $(CFLAGS) -c -o $@ $<
 
 $(TARGET).000: $(OBJS_000)
@@ -49,8 +57,6 @@ $(TARGET).000: $(OBJS_000)
 $(TARGET).020: $(OBJS_020)
 	$(CC) $(ARCH_020) $(LDFLAGS) -o $@.debug $^ $(LIBS)
 	$(STRIP) $(STRIPFLAGS) -o $@ $@.debug
-
-init.o: $(TARGET)_rev.h
 
 clean:
 	rm -rf $(TARGET).000 $(TARGET).000.debug obj-000
