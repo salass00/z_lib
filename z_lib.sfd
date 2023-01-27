@@ -5,6 +5,7 @@
 ==bias 30
 ==public
 ==include <exec/types.h>
+==include <libraries/z.h>
 CONST_STRPTR ZlibVersion() ()
 LONG DeflateInit(z_streamp strm, LONG level) (a0,d0)
 LONG Deflate(z_streamp strm, LONG flush) (a0,d0)

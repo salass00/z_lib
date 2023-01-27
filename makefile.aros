@@ -3,12 +3,15 @@ VERSION = 1
 
 ZLIBDIR = src/zlib-1.2.13
 
-CC = i386-aros-gcc
+CC     = i386-aros-gcc
+STRIP  = i386-aros-strip
+AR     = i386-aros-ar
+RANLIB = i386-aros-ranlib
 
 OPTIMIZE = -O2 -fomit-frame-pointer
 DEBUG    = -g
 INCLUDES = -I./include -I./$(ZLIBDIR) -I.
-DEFINES  = -DSTDC -DAMIGA -DZLIB_CONST -DHAVE_STDARG_H
+DEFINES  = -DSTDC -DAMIGA -DZLIB_CONST -DHAVE_UNISTD_H -DHAVE_STDARG_H
 WARNINGS = -Werror -Wall -Wwrite-strings -Wno-pointer-sign
 
 CFLAGS  = $(OPTIMIZE) $(DEBUG) $(INCLUDES) $(DEFINES) $(WARNINGS)
@@ -26,8 +29,13 @@ SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 OBJS = $(subst src/,obj/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
+STATIC_SRCS = $(addprefix src/static/,autoinit_z_base.c stubs.c) \
+              $(addprefix $(ZLIBDIR)/,gzclose.c gzread.c gzlib.c gzwrite.c)
+
+STATIC_OBJS = $(subst src/,obj/,$(STATIC_SRCS:.c=.o))
+
 .PHONY: all
-all: $(TARGET)
+all: $(TARGET) $(TARGET).debug libz.a
 
 -include $(DEPS)
 
@@ -42,8 +50,13 @@ $(TARGET).debug: $(OBJS)
 $(TARGET): $(OBJS)
 	$(CC) -s $(LDFLAGS) -o $@ $^ $(LIBS)
 
+libz.a: $(STATIC_OBJS)
+	$(AR) -crv $@ $^
+	$(RANLIB) $@
+
 clean:
 	rm -rf $(TARGET) $(TARGET).debug obj
+	rm -f libz.a
 
 revision:
 	bumprev -e is $(VERSION) $(TARGET)

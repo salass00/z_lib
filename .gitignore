@@ -7,5 +7,7 @@ z.library.000
 z.library.000.debug
 z.library.020
 z.library.020.debug
+libz.a.000
+libz.a.020
 # Ignore release archives
 *.lha

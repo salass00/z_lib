@@ -13,6 +13,7 @@
 */
 
 #include <exec/types.h>
+#include <libraries/z.h>
 
 #ifdef __cplusplus
 extern "C" {
