@@ -32,15 +32,16 @@
 #include "../z_vectors.h"
 
 #ifdef __AROS__
-AROS_LH0(CONST_STRPTR, ZlibVersion,
-	struct ZBase *, libBase, 5, Zlib
-)
+AROS_LH1(CONST_STRPTR, ZError,
+	AROS_LHA(LONG, err, D0),
+	struct ZBase *, libBase, 40, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-CONST_STRPTR Zlib_ZlibVersion(void) {
+CONST_STRPTR Zlib_ZError(REG(d0, LONG err))
+{
 #endif
-	return (CONST_STRPTR)zlibVersion();
+	return zError(err);
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif

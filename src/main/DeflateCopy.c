@@ -35,12 +35,12 @@
 AROS_LH2(LONG, DeflateCopy,
 	AROS_LHA(z_streamp, dest, A0),
 	AROS_LHA(z_streamp, source, A1),
-	struct ZBase *, libBase, 14, Zlib
-)
+	struct ZBase *, libBase, 14, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-LONG Zlib_DeflateCopy(REG(a0, z_streamp dest), REG(a1, z_streamp source)) {
+LONG Zlib_DeflateCopy(REG(a0, z_streamp dest), REG(a1, z_streamp source))
+{
 #endif
 	return deflateCopy(dest, source);
 #ifdef __AROS__

@@ -36,12 +36,12 @@ AROS_LH3(ULONG, CRC32,
 	AROS_LHA(ULONG, crc, D0),
 	AROS_LHA(APTR, buf, A0),
 	AROS_LHA(ULONG, len, D1),
-	struct ZBase *, libBase, 23, Zlib
-)
+	struct ZBase *, libBase, 23, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-ULONG Zlib_CRC32(REG(d0, ULONG crc), REG(a0, APTR buf), REG(d1, ULONG len)) {
+ULONG Zlib_CRC32(REG(d0, ULONG crc), REG(a0, APTR buf), REG(d1, ULONG len))
+{
 #endif
 	return crc32(crc, buf, len);
 #ifdef __AROS__

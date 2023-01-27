@@ -21,7 +21,7 @@ typedef ULONG _sfdc_vararg;
 #endif /* !Z_BASE_NAME */
 
 #define ZlibVersion() \
-      LP0(0x1e, const char *, ZlibVersion ,\
+      LP0(0x1e, CONST_STRPTR, ZlibVersion ,\
       , Z_BASE_NAME)
 
 #define DeflateInit(___strm, ___level) \
@@ -98,6 +98,90 @@ typedef ULONG _sfdc_vararg;
 
 #define InflateSync(___strm) \
       LP1(0x90, LONG, InflateSync , z_streamp, ___strm, a0,\
+      , Z_BASE_NAME)
+
+#define DeflateTune(___strm, ___good_length, ___max_lazy, ___nice_length, ___max_chain) \
+      LP5(0x96, LONG, DeflateTune , z_streamp, ___strm, a0, LONG, ___good_length, d0, LONG, ___max_lazy, d1, LONG, ___nice_length, d2, LONG, ___max_chain, d3,\
+      , Z_BASE_NAME)
+
+#define DeflateBound(___strm, ___sourceLen) \
+      LP2(0x9c, ULONG, DeflateBound , z_streamp, ___strm, a0, ULONG, ___sourceLen, d0,\
+      , Z_BASE_NAME)
+
+#define DeflatePrime(___strm, ___bits, ___value) \
+      LP3(0xa2, LONG, DeflatePrime , z_streamp, ___strm, a0, LONG, ___bits, d0, LONG, ___value, d1,\
+      , Z_BASE_NAME)
+
+#define DeflateSetHeader(___strm, ___head) \
+      LP2(0xa8, LONG, DeflateSetHeader , z_streamp, ___strm, a0, gz_headerp, ___head, a1,\
+      , Z_BASE_NAME)
+
+#define InflateCopy(___dest, ___source) \
+      LP2(0xae, LONG, InflateCopy , z_streamp, ___dest, a0, z_streamp, ___source, a1,\
+      , Z_BASE_NAME)
+
+#define InflatePrime(___strm, ___bits, ___value) \
+      LP3(0xb4, LONG, InflatePrime , z_streamp, ___strm, a0, LONG, ___bits, d0, LONG, ___value, d1,\
+      , Z_BASE_NAME)
+
+#define InflateGetHeader(___strm, ___head) \
+      LP2(0xba, LONG, InflateGetHeader , z_streamp, ___strm, a0, gz_headerp, ___head, a1,\
+      , Z_BASE_NAME)
+
+#define InflateBackInit(___strm, ___windowBits, ___window) \
+      LP3(0xc0, LONG, InflateBackInit , z_streamp, ___strm, a0, LONG, ___windowBits, d0, UBYTE *, ___window, a1,\
+      , Z_BASE_NAME)
+
+#define InflateBack(___strm, ___in, ___in_desc, ___out, ___out_desc) \
+      LP5(0xc6, LONG, InflateBack , z_streamp, ___strm, a0, in_func, ___in, a1, void *, ___in_desc, d0, out_func, ___out, a2, void *, ___out_desc, d1,\
+      , Z_BASE_NAME)
+
+#define InflateBackEnd(___strm) \
+      LP1(0xcc, LONG, InflateBackEnd , z_streamp, ___strm, a0,\
+      , Z_BASE_NAME)
+
+#define Adler32Combine(___adler1, ___adler2, ___len2) \
+      LP3(0xd2, ULONG, Adler32Combine , ULONG, ___adler1, d0, ULONG, ___adler2, d1, LONG, ___len2, d2,\
+      , Z_BASE_NAME)
+
+#define CRC32Combine(___crc1, ___crc2, ___len2) \
+      LP3(0xd8, ULONG, CRC32Combine , ULONG, ___crc1, d0, ULONG, ___crc2, d1, LONG, ___len2, d2,\
+      , Z_BASE_NAME)
+
+#define Compress2(___dest, ___destLen, ___source, ___sourceLen, ___level) \
+      LP5(0xde, LONG, Compress2 , APTR, ___dest, a0, ULONG *, ___destLen, a1, CONST_APTR, ___source, a2, ULONG, ___sourceLen, d0, LONG, ___level, d1,\
+      , Z_BASE_NAME)
+
+#define CompressBound(___sourceLen) \
+      LP1(0xe4, ULONG, CompressBound , ULONG, ___sourceLen, d0,\
+      , Z_BASE_NAME)
+
+#define InflateGetDictionary(___strm, ___dictionary, ___dictLength) \
+      LP3(0xea, LONG, InflateGetDictionary , z_streamp, ___strm, a0, UBYTE *, ___dictionary, a1, ULONG *, ___dictLength, a2,\
+      , Z_BASE_NAME)
+
+#define ZError(___err) \
+      LP1(0xf0, CONST_STRPTR, ZError , LONG, ___err, d0,\
+      , Z_BASE_NAME)
+
+#define Uncompress2(___dest, ___destLen, ___source, ___sourceLen) \
+      LP4(0xf6, LONG, Uncompress2 , APTR, ___dest, a0, ULONG *, ___destLen, a1, CONST_APTR, ___source, a2, ULONG *, ___sourceLen, a3,\
+      , Z_BASE_NAME)
+
+#define InflateReset2(___strm, ___windowBits) \
+      LP2(0xfc, LONG, InflateReset2 , z_streamp, ___strm, a0, LONG, ___windowBits, d0,\
+      , Z_BASE_NAME)
+
+#define InflateValidate(___strm, ___check) \
+      LP2(0x102, LONG, InflateValidate , z_streamp, ___strm, a0, LONG, ___check, d0,\
+      , Z_BASE_NAME)
+
+#define CRC32CombineGen(___len2) \
+      LP1(0x108, ULONG, CRC32CombineGen , LONG, ___len2, d0,\
+      , Z_BASE_NAME)
+
+#define CRC32CombineOp(___crc1, ___crc2, ___op) \
+      LP3(0x10e, ULONG, CRC32CombineOp , ULONG, ___crc1, d0, ULONG, ___crc2, d1, ULONG, ___op, d2,\
       , Z_BASE_NAME)
 
 #endif /* !_INLINE_Z_H */

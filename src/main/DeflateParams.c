@@ -36,12 +36,12 @@ AROS_LH3(LONG, DeflateParams,
 	AROS_LHA(z_streamp, strm, A0),
 	AROS_LHA(LONG, level, D0),
 	AROS_LHA(LONG, strategy, D1),
-	struct ZBase *, libBase, 16, Zlib
-)
+	struct ZBase *, libBase, 16, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-LONG Zlib_DeflateParams(REG(a0, z_streamp strm), REG(d0, LONG level), REG(d1, LONG strategy)) {
+LONG Zlib_DeflateParams(REG(a0, z_streamp strm), REG(d0, LONG level), REG(d1, LONG strategy))
+{
 #endif
 	return deflateParams(strm, level, strategy);
 #ifdef __AROS__

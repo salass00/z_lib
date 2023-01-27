@@ -37,8 +37,7 @@ AROS_LH4(LONG, Uncompress,
 	AROS_LHA(ULONG *, destLen, A1),
 	AROS_LHA(APTR, source, A2),
 	AROS_LHA(ULONG, sourceLen, D0),
-	struct ZBase *, libBase, 21, Zlib
-)
+	struct ZBase *, libBase, 21, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
@@ -46,7 +45,14 @@ LONG Zlib_Uncompress(REG(a0, APTR dest), REG(a1, ULONG *destLen), REG(a2, APTR s
 	REG(d0, ULONG sourceLen))
 {
 #endif
-	return uncompress(dest, (uLongf *)destLen, source, sourceLen);
+	if (sizeof(uLongf) == sizeof(ULONG)) {
+		return uncompress(dest, (uLongf *)destLen, source, sourceLen);
+	} else {
+		uLongf dlen = *destLen;
+		LONG res = uncompress(dest, &dlen, source, sourceLen);
+		*destLen = dlen;
+		return res;
+	}
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif

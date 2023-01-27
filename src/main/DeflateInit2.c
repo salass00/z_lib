@@ -39,8 +39,7 @@ AROS_LH6(LONG, DeflateInit2,
 	AROS_LHA(LONG, windowBits, D2),
 	AROS_LHA(LONG, memLevel, D3),
 	AROS_LHA(LONG, strategy, D4),
-	struct ZBase *, libBase, 12, Zlib
-)
+	struct ZBase *, libBase, 12, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else

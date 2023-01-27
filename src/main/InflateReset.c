@@ -34,12 +34,12 @@
 #ifdef __AROS__
 AROS_LH1(LONG, InflateReset,
 	AROS_LHA(z_streamp, strm, A0),
-	struct ZBase *, libBase, 19, Zlib
-)
+	struct ZBase *, libBase, 19, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-LONG Zlib_InflateReset(REG(a0, z_streamp strm)) {
+LONG Zlib_InflateReset(REG(a0, z_streamp strm))
+{
 #endif
 	return inflateReset(strm);
 #ifdef __AROS__

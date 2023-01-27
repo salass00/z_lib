@@ -32,15 +32,18 @@
 #include "../z_vectors.h"
 
 #ifdef __AROS__
-AROS_LH0(CONST_STRPTR, ZlibVersion,
-	struct ZBase *, libBase, 5, Zlib
-)
+AROS_LH3(LONG, DeflatePrime,
+	AROS_LHA(z_streamp, strm, A0),
+	AROS_LHA(LONG, bits, D0),
+	AROS_LHA(LONG, value, D1),
+	struct ZBase *, libBase, 27, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-CONST_STRPTR Zlib_ZlibVersion(void) {
+LONG Zlib_DeflatePrime(REG(a0, z_streamp strm), REG(d0, LONG bits), REG(d1, LONG value))
+{
 #endif
-	return (CONST_STRPTR)zlibVersion();
+	return deflatePrime(strm, bits, value);
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif

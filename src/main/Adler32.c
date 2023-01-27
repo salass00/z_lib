@@ -36,12 +36,12 @@ AROS_LH3(ULONG, Adler32,
 	AROS_LHA(ULONG, adler, D0),
 	AROS_LHA(APTR, buf, A0),
 	AROS_LHA(ULONG, len, D1),
-	struct ZBase *, libBase, 22, Zlib
-)
+	struct ZBase *, libBase, 22, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-ULONG Zlib_Adler32(REG(d0, ULONG adler), REG(a0, APTR buf), REG(d1, ULONG len)) {
+ULONG Zlib_Adler32(REG(d0, ULONG adler), REG(a0, APTR buf), REG(d1, ULONG len))
+{
 #endif
 	return adler32(adler, buf, len);
 #ifdef __AROS__

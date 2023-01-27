@@ -36,8 +36,7 @@ AROS_LH3(LONG, DeflateSetDictionary,
 	AROS_LHA(z_streamp, strm, A0),
 	AROS_LHA(APTR, dictionary, A1),
 	AROS_LHA(ULONG, dictLength, D0),
-	struct ZBase *, libBase, 13, Zlib
-)
+	struct ZBase *, libBase, 13, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else

@@ -32,15 +32,28 @@
 #include "../z_vectors.h"
 
 #ifdef __AROS__
-AROS_LH0(CONST_STRPTR, ZlibVersion,
-	struct ZBase *, libBase, 5, Zlib
-)
+AROS_LH5(LONG, Compress2,
+	AROS_LHA(APTR, dest, A0),
+	AROS_LHA(ULONG *, destLen, A1),
+	AROS_LHA(CONST_APTR, source, A2),
+	AROS_LHA(ULONG, sourceLen, D0),
+	AROS_LHA(LONG, level, D1),
+	struct ZBase *, libBase, 37, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-CONST_STRPTR Zlib_ZlibVersion(void) {
+LONG Zlib_Compress2(REG(a0, APTR dest), REG(a1, ULONG *destLen), REG(a2, CONST_APTR source),
+	REG(d0, ULONG sourceLen), REG(d1, LONG level))
+{
 #endif
-	return (CONST_STRPTR)zlibVersion();
+	if (sizeof(uLongf) == sizeof(ULONG)) {
+		return compress2(dest, (uLongf *)destLen, source, sourceLen, level);
+	} else {
+		uLongf dlen = *destLen;
+		LONG res = compress2(dest, &dlen, source, sourceLen, level);
+		*destLen = dlen;
+		return res;
+	}
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif

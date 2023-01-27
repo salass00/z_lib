@@ -2,3 +2,10 @@ z.library 2.1 (d.m.2023)
 
 - Updated to zlib 1.2.13.
 
+- Added functions Adler32Combine(), CRC32Combine(), CRC32CombineGen(),
+  CRC32CombineOp(), Compress2(), CompressBound(), DeflateBound(),
+  DeflatePrime(), DeflateSetHeader(), DeflateTune(), InflateBackInit(),
+  InflateBack(), InflateBackEnd(), InflateCopy(), InflateGetDictionary(),
+  InflateGetHeader(), InflatePrime(), InflateReset2(), InflateValidate(),
+  Uncompress2() and ZError() to the jump table.
+

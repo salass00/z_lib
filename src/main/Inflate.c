@@ -35,12 +35,12 @@
 AROS_LH2(LONG, Inflate,
 	AROS_LHA(z_streamp, strm, A0),
 	AROS_LHA(LONG, flush, D0),
-	struct ZBase *, libBase, 10, Zlib
-)
+	struct ZBase *, libBase, 10, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-LONG Zlib_Inflate(REG(a0, z_streamp strm), REG(d0, LONG flush)) {
+LONG Zlib_Inflate(REG(a0, z_streamp strm), REG(d0, LONG flush))
+{
 #endif
 	return inflate(strm, flush);
 #ifdef __AROS__

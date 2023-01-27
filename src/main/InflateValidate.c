@@ -32,15 +32,17 @@
 #include "../z_vectors.h"
 
 #ifdef __AROS__
-AROS_LH0(CONST_STRPTR, ZlibVersion,
-	struct ZBase *, libBase, 5, Zlib
-)
+AROS_LH2(LONG, InflateValidate,
+	AROS_LHA(z_streamp, strm, A0),
+	AROS_LHA(LONG, check, D0),
+	struct ZBase *, libBase, 43, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-CONST_STRPTR Zlib_ZlibVersion(void) {
+LONG Zlib_InflateValidate(REG(a0, z_streamp strm), REG(d0, LONG check))
+{
 #endif
-	return (CONST_STRPTR)zlibVersion();
+	return inflateValidate(strm, check);
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif

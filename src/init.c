@@ -104,11 +104,11 @@ static struct ZBase *LibInit (REG(d0, struct ZBase *libBase), REG(a0, BPTR segli
 #endif
 	libBase->libNode.lib_Node.ln_Type = NT_LIBRARY;
 	libBase->libNode.lib_Node.ln_Pri  = 0;
-	libBase->libNode.lib_Node.ln_Name = LIBNAME;
+	libBase->libNode.lib_Node.ln_Name = (STRPTR)LIBNAME;
 	libBase->libNode.lib_Flags        = LIBF_SUMUSED|LIBF_CHANGED;
 	libBase->libNode.lib_Version      = VERSION;
 	libBase->libNode.lib_Revision     = REVISION;
-	libBase->libNode.lib_IdString     = VSTRING;
+	libBase->libNode.lib_IdString     = (STRPTR)VSTRING;
 
 	libBase->seglist = seglist;
 	SysBase = exec_base;

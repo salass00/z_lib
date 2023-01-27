@@ -32,15 +32,18 @@
 #include "../z_vectors.h"
 
 #ifdef __AROS__
-AROS_LH0(CONST_STRPTR, ZlibVersion,
-	struct ZBase *, libBase, 5, Zlib
-)
+AROS_LH3(ULONG, CRC32CombineOp,
+	AROS_LHA(ULONG, crc1, D0),
+	AROS_LHA(ULONG, crc2, D1),
+	AROS_LHA(ULONG, op, D2),
+	struct ZBase *, libBase, 45, Zlib)
 {
 	AROS_LIBFUNC_INIT
 #else
-CONST_STRPTR Zlib_ZlibVersion(void) {
+ULONG Zlib_CRC32CombineOp(REG(d0, ULONG crc1), REG(d1, ULONG crc2), REG(d2, ULONG op))
+{
 #endif
-	return (CONST_STRPTR)zlibVersion();
+	return crc32_combine_op(crc1, crc2, op);
 #ifdef __AROS__
 	AROS_LIBFUNC_EXIT
 #endif

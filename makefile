@@ -10,8 +10,9 @@ OPTIMIZE = -O2 -fomit-frame-pointer
 DEBUG    = -g
 INCLUDES = -I./include -I./$(ZLIBDIR) -I.
 DEFINES  = -DSTDC -DAMIGA -DZLIB_CONST -DHAVE_STDARG_H
+WARNINGS = -Werror -Wall -Wwrite-strings -Wno-pointer-sign
 
-CFLAGS  = -noixemul $(OPTIMIZE) $(DEBUG) $(INCLUDES) $(DEFINES)
+CFLAGS  = -noixemul $(OPTIMIZE) $(DEBUG) $(INCLUDES) $(DEFINES) $(WARNINGS)
 LDFLAGS = -noixemul -nostartfiles
 LIBS    = 
 
@@ -19,7 +20,7 @@ STRIPFLAGS = -R.comment
 
 ZLIB_SRCS = $(addprefix $(ZLIBDIR)/, \
             adler32.c compress.c crc32.c deflate.c inffast.c inflate.c \
-            inftrees.c trees.c uncompr.c zutil.c)
+            inftrees.c trees.c uncompr.c zutil.c infback.c)
 
 main_SRCS = $(wildcard src/main/*.c)
 
