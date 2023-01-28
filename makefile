@@ -36,7 +36,7 @@ ARCH_020 = -m68020
 OBJS_020 = $(subst src/,obj-020/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 DEPS_020 = $(OBJS_020:.o=.d)
 
-STATIC_SRCS = $(addprefix src/static/,autoinit_z_base.c stubs.c) \
+STATIC_SRCS = src/static/autoinit_z_base.c $(wildcard src/static/stubs/*.c) \
               $(addprefix $(ZLIBDIR)/,gzclose.c gzread.c gzlib.c gzwrite.c)
 
 STATIC_OBJS_000 = $(subst src/,obj-000/,$(STATIC_SRCS:.c=.o))

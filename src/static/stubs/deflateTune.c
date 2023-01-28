@@ -27,39 +27,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#define LIBRARIES_Z_H
+#include <zlib.h>
 #include <proto/z.h>
-#include <proto/exec.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-struct Library *ZBase;
-static struct Library *__ZBase;
-
-#ifdef __GNUC__
-__attribute__((constructor))
-#endif
-void _INIT_5_ZBase(void)
+int deflateTune(z_streamp strm, int good_length, int max_lazy, int nice_length,
+	int max_chain)
 {
-	if (ZBase != NULL)
-		return;
-
-	__ZBase = ZBase = OpenLibrary("z.library", 2);
-	if (ZBase == NULL)
-	{
-		fprintf(stderr, "Failed to open z.library V2\n");
-		abort();
-	}
-}
-
-#ifdef __GNUC__
-__attribute__((destructor))
-#endif
-void _EXIT_5_ZBase(void)
-{
-	if (__ZBase != NULL)
-	{
-		CloseLibrary(__ZBase);
-		__ZBase = NULL;
-	}
+	return DeflateTune(strm, good_length, max_lazy, nice_length, max_chain);
 }
 

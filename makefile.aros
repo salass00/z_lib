@@ -29,7 +29,7 @@ SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 OBJS = $(subst src/,obj/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
-STATIC_SRCS = $(addprefix src/static/,autoinit_z_base.c stubs.c) \
+STATIC_SRCS = src/static/autoinit_z_base.c $(wildcard src/static/stubs/*.c) \
               $(addprefix $(ZLIBDIR)/,gzclose.c gzread.c gzlib.c gzwrite.c)
 
 STATIC_OBJS = $(subst src/,obj/,$(STATIC_SRCS:.c=.o))
