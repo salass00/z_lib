@@ -54,9 +54,16 @@ libz.a: $(STATIC_OBJS)
 	$(AR) -crv $@ $^
 	$(RANLIB) $@
 
+minigzip.debug: obj/minigzip.o libz.a
+	$(CC) -o $@ $^
+
+minigzip: obj/minigzip.o libz.a
+	$(CC) -s -o $@ $^
+
 clean:
 	rm -rf $(TARGET) $(TARGET).debug obj
 	rm -f libz.a
+	rm -f minigzip minigzip.debug
 
 revision:
 	bumprev -e is $(VERSION) $(TARGET)

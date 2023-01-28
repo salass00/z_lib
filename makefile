@@ -74,10 +74,15 @@ libz.a.020: $(STATIC_OBJS_020)
 	$(AR) -crv $@ $^
 	$(RANLIB) $@
 
+minigzip: obj-000/minigzip.o libz.a.000
+	$(CC) $(ARCH_000) -noixemul -o $@.debug $^
+	$(STRIP) $(STRIPFLAGS) -o $@ $@.debug
+
 clean:
 	rm -rf $(TARGET).000 $(TARGET).000.debug obj-000
 	rm -rf $(TARGET).020 $(TARGET).020.debug obj-020
 	rm -f libz.a.000 libz.a.020
+	rm -f minigzip minigzip.debug
 
 revision:
 	bumprev -e is $(VERSION) $(TARGET)
