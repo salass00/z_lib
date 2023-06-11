@@ -58,6 +58,9 @@ obj-020/%.o: src/%.c
 	$(CC) -MM -MP -MT $(@:.o=.d) -MT $@ -MF $(@:.o=.d) $(ARCH_020) $(CFLAGS) $<
 	$(CC) $(ARCH_020) $(CFLAGS) -c -o $@ $<
 
+$(OBJS_000): OPTIMIZE += -mregparm
+$(OBJS_020): OPTIMIZE += -mregparm
+
 $(TARGET).000: $(OBJS_000)
 	$(CC) $(ARCH_000) $(LDFLAGS) -o $@.debug $^ $(LIBS)
 	$(STRIP) $(STRIPFLAGS) -o $@ $@.debug

@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdint.h> /* For SIZE_MAX */
 #include <string.h>
+#include <SDI/SDI_compiler.h>
 
 #ifdef __VBCC__
 #define bzero(ptr,size) memset(ptr, 0, size)
@@ -54,7 +55,7 @@ void malloc_exit(void) {
 	DeletePool(LibPool);
 }
 
-void *malloc(size_t size) {
+STDARGS void *malloc(size_t size) {
 	size_t *ptr;
 	if (size > (SIZE_MAX - sizeof(size_t))) {
 		return NULL;
@@ -68,7 +69,7 @@ void *malloc(size_t size) {
 	return ptr;
 }
 
-void *calloc(size_t num, size_t es) {
+STDARGS void *calloc(size_t num, size_t es) {
 	size_t size = num * es;
 	void *ptr;
 	if (num != 0 && es != 0 && (size / es) != num) {
@@ -81,7 +82,7 @@ void *calloc(size_t num, size_t es) {
 	return ptr;
 }
 
-void free(void *ptr) {
+STDARGS void free(void *ptr) {
 	if (ptr) {
 		ObtainSemaphore(&LibPoolSemaphore);
 		FreePooled(LibPool, BASE_PTR(ptr), sizeof(size_t) + ALLOC_SIZE(ptr));
