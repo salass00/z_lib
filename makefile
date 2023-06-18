@@ -1,5 +1,5 @@
 TARGET  = z.library
-VERSION = 1
+VERSION = 2
 
 ZLIBDIR = src/zlib-1.2.13
 

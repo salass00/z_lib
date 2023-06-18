@@ -1,6 +1,6 @@
-#define VERSION  1
-#define REVISION 7
-#define DATE     "24.4.2010"
-#define VERS     "z.library 1.7"
-#define VSTRING  VERS" ("DATE")\r\n"
-#define VERSTAG  "\0$VER: "VERS" ("DATE")"
+#define VERSION		2
+#define REVISION	1
+#define DATE		"18.6.2023"
+#define VERS		"z.library 2.1"
+#define VSTRING		"z.library 2.1 (18.6.2023)\r\n"
+#define VERSTAG		"\0$VER: z.library 2.1 (18.6.2023)"
