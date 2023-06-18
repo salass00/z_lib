@@ -1,15 +1,7 @@
 # Ignore object, dependency and static library files
 *.[ado]
-# Ignore generated executable files
-z.library
-z.library.debug
-z.library.000
-z.library.000.debug
-z.library.020
-z.library.020.debug
-libz.a.000
-libz.a.020
-minigzip
-minigzip.debug
+# Ignore generated files
+bin
+obj
 # Ignore release archives
 *.lha

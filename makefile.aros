@@ -34,44 +34,48 @@ main_SRCS = $(wildcard src/main/*.c)
 
 SRCS = $(addprefix src/,dummy_start.c init.c malloc.c)
 
-OBJS = $(subst src/,obj/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
+OBJS = $(subst src/,obj/$(CPU)/,$(main_SRCS:.c=.o) $(SRCS:.c=.o) $(ZLIB_SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
 STATIC_SRCS = src/static/autoinit_z_base.c $(wildcard src/static/stubs/*.c) \
               $(addprefix $(ZLIBDIR)/,gzclose.c gzread.c gzlib.c gzwrite.c)
 
-STATIC_OBJS = $(subst src/,obj/,$(STATIC_SRCS:.c=.o))
+STATIC_OBJS = $(subst src/,obj/$(CPU)/,$(STATIC_SRCS:.c=.o))
 
 .PHONY: all
-all: $(TARGET) $(TARGET).debug libz.a
+all: bin/$(TARGET).$(CPU) bin/$(TARGET).$(CPU).debug bin/libz.a.$(CPU) \
+     bin/minigzip.$(CPU) bin/minigzip.$(CPU).debug
 
 -include $(DEPS)
 
-obj/%.o: src/%.c
+obj/$(CPU)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) -MM -MP -MT $(@:.o=.d) -MT $@ -MF $(@:.o=.d) $(CFLAGS) $<
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(TARGET).debug: $(OBJS)
+bin/$(TARGET).$(CPU).debug: $(OBJS)
+	@mkdir -p $(dir $@)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 
-$(TARGET): $(OBJS)
+bin/$(TARGET).$(CPU): $(OBJS)
+	@mkdir -p $(dir $@)
 	$(CC) -s $(LDFLAGS) -o $@ $^ $(LIBS)
 
-libz.a: $(STATIC_OBJS)
+bin/libz.a.$(CPU): $(STATIC_OBJS)
+	@mkdir -p $(dir $@)
 	$(AR) -crv $@ $^
 	$(RANLIB) $@
 
-minigzip.debug: obj/minigzip.o libz.a
+bin/minigzip.$(CPU).debug: obj/$(CPU)/minigzip.o bin/libz.a.$(CPU)
+	@mkdir -p $(dir $@)
 	$(CC) -o $@ $^
 
-minigzip: obj/minigzip.o libz.a
+bin/minigzip.$(CPU): obj/$(CPU)/minigzip.o bin/libz.a.$(CPU)
+	@mkdir -p $(dir $@)
 	$(CC) -s -o $@ $^
 
 clean:
-	rm -rf $(TARGET) $(TARGET).debug obj
-	rm -f libz.a
-	rm -f minigzip minigzip.debug
+	rm -rf bin obj
 
 revision:
 	bumprev -e is $(VERSION) $(TARGET)
