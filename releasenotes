@@ -1,3 +1,26 @@
+z.library 1.4 (7.4.2010)
+
+- First released version. Based on zlib 1.2.4.
+
+
+z.library 1.5 (19.4.2010)
+
+- Added AROS support.
+
+
+z.library 1.6 (21.4.2010)
+
+- Changed the library interface to be backwards compatible with the MooVId
+  z.library.
+
+
+z.library 1.7 (26.4.2010)
+
+- Fixed a slightly too small size being passed to FreePooled() in the free()
+  replacement function (I forgot to take into account the size_t that was used
+  to store the allocation size).
+
+
 z.library 2.1 (d.m.2023)
 
 - Updated to zlib 1.2.13.
