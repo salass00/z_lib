@@ -32,7 +32,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Library *ZBase;
+struct Library *ZBase = NULL;
 static struct Library *__ZBase;
 
 #ifdef __GNUC__

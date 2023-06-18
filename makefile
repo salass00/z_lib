@@ -84,7 +84,7 @@ bin/libz.a.020: $(STATIC_OBJS_020)
 
 bin/minigzip: obj/68000/minigzip.o bin/libz.a.000
 	@mkdir -p $(dir $@)
-	$(CC) $(ARCH_000) -noixemul -o $@.debug $^
+	$(CC) -noixemul -I./$(ZLIBDIR) $(ARCH_000) -o $@.debug $^
 	$(STRIP) $(STRIPFLAGS) -o $@ $@.debug
 
 clean:
