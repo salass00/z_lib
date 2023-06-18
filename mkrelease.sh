@@ -8,7 +8,8 @@ HOST="${1:-m68k-amigaos}"
 if [ "$HOST" = "m68k-amigaos" ]; then
   make -f makefile all
 else
-  make -f makefile.aros all
+  CPU=`echo "${HOST}" | cut -d'-' -f1`
+  make -f makefile.aros CPU=${CPU} all
 fi;
 
 ZLIBDIR='src/zlib-1.2.13'
@@ -34,8 +35,12 @@ cp -p README ${DESTDIR}/z_lib
 cp -p LICENSE ${DESTDIR}/z_lib
 cp -p ${ZLIBDIR}/LICENSE ${DESTDIR}/z_lib/LICENSE-zlib
 cp -p releasenotes ${DESTDIR}/z_lib
-cp -p z.library.000 ${DESTDIR}/z_lib/Libs
-cp -p z.library.020 ${DESTDIR}/z_lib/Libs
+if [ "$HOST" = "m68k-amigaos" ]; then
+  cp -p bin/z.library.000 ${DESTDIR}/z_lib/Libs
+  cp -p bin/z.library.020 ${DESTDIR}/z_lib/Libs
+else
+  cp -p bin/z.library.${CPU} ${DESTDIR}/z_lib/Libs/z.library
+fi;
 cp -p z_lib.sfd ${DESTDIR}/z_lib/Developer/include/sfd
 cp -p include/fd/z_lib.fd ${DESTDIR}/z_lib/Developer/include/fd
 cp -p include/clib/z_protos.h ${DESTDIR}/z_lib/Developer/include/include_h/clib
