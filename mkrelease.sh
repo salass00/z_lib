@@ -4,6 +4,7 @@
 #
 
 HOST="${1:-m68k-amigaos}"
+FORMAT="${2:-lha}"
 
 if [ "$HOST" = "m68k-amigaos" ]; then
   make -f makefile all
@@ -57,12 +58,27 @@ cp -p icons/def_doc.info ${DESTDIR}/z_lib/LICENSE.info
 cp -p icons/def_doc.info ${DESTDIR}/z_lib/LICENSE-zlib.info
 cp -p icons/def_doc.info ${DESTDIR}/z_lib/releasenotes.info
 
-rm -rf z_lib.${HOST}.lha
-PREVDIR=`pwd`
-cd ${DESTDIR} && lha ao5 ../z_lib.${HOST}.lha *
-cd ${PREVDIR}
+case "${FORMAT}" in
+  "7z")
+    rm -f z_lib.${HOST}.7z
+    7za u z_lib.${HOST}.7z ./${DESTDIR}/*
+    echo "z_lib.${HOST}.7z created"
+    ;;
+  "iso")
+    rm -f z_lib.${HOST}.iso
+    PREVDIR=`pwd`
+    cd ${DESTDIR} && mkisofs -R -o ../z_lib.${HOST}.iso -V ZLIB .
+    cd ${PREVDIR}
+    echo "z_lib.${HOST}.iso created"
+    ;;
+  "lha")
+    rm -rf z_lib.${HOST}.lha
+    PREVDIR=`pwd`
+    cd ${DESTDIR} && lha ao5 ../z_lib.${HOST}.lha *
+    cd ${PREVDIR}
+    echo "z_lib.${HOST}.lha created"
+    ;;
+esac
 
 rm -rf ${DESTDIR}
-
-echo "z_lib.${HOST}.lha created"
 
